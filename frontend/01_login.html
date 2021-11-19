@@ -3,17 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hahmlet:wght@300&display=swap" rel="stylesheet">
     <style>
-        .mytitle {
-            color : red;
-            font-size: 40px;
+
+        * {
+            font-family: 'Hahmlet', serif;
         }
+
+        .mytitle {
+            background-color: aqua;
+            width: 300px;
+            height: 200px;
+            color: white;
+            text-align: center;
+
+            background-image: url("https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg");
+            background-size: cover;
+            background-position: center;
+
+            border-radius: 10px;
+
+            padding-top: 20px;
+        }
+        .wrap {
+            background-color: none;
+            width: 300px;
+            margin: auto;
+        }
+        .mybtn {
+            display: block;
+            width: 100px;
+            margin: auto;
+        }
+
+        .red-font {
+            color : red;
+            font-size : 100px;
+        }
+
     </style>
 </head>
 <body>
-    <h1 class="mytitle">로그인 페이지</h1>
-    <p>ID : <input type="text"/></p>
-    <p>PW : <input type="text"/></p>
-    <button>로그인하기</button>
+    <div class="wrap">
+        <div class="mytitle">
+            <h1>로그인 페이지</h1>
+            <h5>아이디, 패스워드를 입력해주세요</h5>
+        </div>
+        <p>ID : <input type="text"/></p>
+        <p>PW : <input type="text"/></p>
+        <!--  <button class="mybtn red-font">로그인하기</button> 두 개의 클래스를 쓸 땐 이런 식으로  -->
+        <button class="mybtn">로그인하기</button>
+    </div>
+
 </body>
 </html>
