@@ -25,6 +25,7 @@
 
 
     <title>스파르타코딩클럽 | 부트스트랩 연습하기</title>
+
     <style>
         * {
             font-family: 'Hahmlet', serif;
@@ -45,6 +46,7 @@
             margin-bottom: 20px;
             border-style: solid;
             border-radius : 5px;
+            display: none;
         }
 
         .bottom-box {
@@ -52,8 +54,15 @@
         }
     </style>
     <script>
-        function hey() {
-            alert('안녕');
+        function openclose(){
+            let status = $('#post-box').css('display');
+            if (status == 'block') {
+                $('#post-box').hide();
+                $('#btn-posting-box').text('포스팅박스 열기');
+            } else {
+                $('#post-box').show();
+                $('#btn-posting-box').text('포스팅박스 닫기')
+            }
         }
     </script>
 </head>
@@ -66,13 +75,13 @@
             <p class="lead">중요한 링크를 저장해두고, 나중에 볼 수 있는 공간입니다</p>
             <hr class="my-4">
             <p class="lead">
-                <a onclick="hey()" class="btn btn-primary btn-lg" href="#" role="button">포스팅박스 열기</a>
+                <a onclick="openclose()" id="btn-posting-box" class="btn btn-primary btn-lg" href="#" role="button">포스팅박스 열기</a>
             </p>
         </div>
-        <div class="form">
+        <div class="form" id="post-box">
           <div class="form-group">
-            <label for="exampleInputEmail1">아티클 Url</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <label >아티클 Url</label>
+            <input type="email" class="form-control" id="article-url" aria-describedby="emailHelp">
           </div>
           <div class="form-group">
             <label for="exampleInputPassword1">간단 코멘트</label>
@@ -80,7 +89,7 @@
           </div>
           <button type="submit" class="btn btn-primary">기사저장</button>
         </div>
-        <div class="card-columns">
+        <div class="card-columns" id="cards-box">
             <div class="card">
                 <img class="card-img-top" src="https://image.rocketpunch.com/user/336824/336824_1603072439.png?s=200x200&t=cover" alt="Card image cap">
                 <div class="card-body">
