@@ -30,22 +30,25 @@
         * {
             font-family: 'Hahmlet', serif;
         }
+
         .mystyle {
             width: 900px;
             margin: auto;
         }
+
         .comment {
-            color : blue;
+            color: blue;
             font-weight: bold;
         }
+
         .form {
             width: 500px;
             background-color: none;
-            padding : 50px;
+            padding: 50px;
             margin: auto;
             margin-bottom: 20px;
             border-style: solid;
-            border-radius : 5px;
+            border-radius: 5px;
             display: none;
         }
 
@@ -54,7 +57,7 @@
         }
     </style>
     <script>
-        function openclose(){
+        function openclose() {
             let status = $('#post-box').css('display');
             if (status == 'block') {
                 $('#post-box').hide();
@@ -64,82 +67,133 @@
                 $('#btn-posting-box').text('포스팅박스 닫기')
             }
         }
+
+        $(document).ready(function () {
+            $('#cards-box').empty();
+            listing();
+        });
+
+        function listing() {
+            $.ajax({
+                type: "GET",
+                url: "http://spartacodingclub.shop/post",
+                data: {},
+                success: function (response) {
+                    let rows = response['articles'];
+                    for (let i = 0; i < rows.length; i++) {
+                        let comment = rows[i]['comment'];
+                        let desc = rows[i]['desc'];
+                        let img_url = rows[i]['image'];
+                        let title = rows[i]['title'];
+                        let url = rows[i]['url'];
+
+                        let temp_html = `        <div class="card">
+                                                    <img class="card-img-top"
+                                                         src="${img_url}"
+                                                         alt="Card image cap">
+                                                    <div class="card-body">
+                                                        <a href="${url}" class="card-title">${title}</a>
+                                                        <p class="card-text">${desc}</p>
+                                                        <p class="comment">${comment}</p>
+                                                    </div>
+                                                </div>`
+
+                        $('#cards-box').append(temp_html);
+
+                    }
+                }
+            })
+        }
+
     </script>
 </head>
 
 
 <body>
-    <div class="mystyle">
-        <div class="jumbotron">
-            <h1 class="display-4">나홀로 링크 메모장</h1>
-            <p class="lead">중요한 링크를 저장해두고, 나중에 볼 수 있는 공간입니다</p>
-            <hr class="my-4">
-            <p class="lead">
-                <a onclick="openclose()" id="btn-posting-box" class="btn btn-primary btn-lg" href="#" role="button">포스팅박스 열기</a>
-            </p>
-        </div>
-        <div class="form" id="post-box">
-          <div class="form-group">
-            <label >아티클 Url</label>
+<div class="mystyle">
+    <div class="jumbotron">
+        <h1 class="display-4">나홀로 링크 메모장</h1>
+        <p class="lead">중요한 링크를 저장해두고, 나중에 볼 수 있는 공간입니다</p>
+        <hr class="my-4">
+        <p class="lead">
+            <a onclick="openclose()" id="btn-posting-box" class="btn btn-primary btn-lg" href="#" role="button">포스팅박스
+                열기</a>
+        </p>
+    </div>
+    <div class="form" id="post-box">
+        <div class="form-group">
+            <label>아티클 Url</label>
             <input type="email" class="form-control" id="article-url" aria-describedby="emailHelp">
-          </div>
-          <div class="form-group">
+        </div>
+        <div class="form-group">
             <label for="exampleInputPassword1">간단 코멘트</label>
             <textarea type="password" class="form-control bottom-box" id="exampleInputPassword1"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">기사저장</button>
         </div>
-        <div class="card-columns" id="cards-box">
-            <div class="card">
-                <img class="card-img-top" src="https://image.rocketpunch.com/user/336824/336824_1603072439.png?s=200x200&t=cover" alt="Card image cap">
-                <div class="card-body">
-                    <a href="https://www.the5amclub.kr" class="card-title">여기 기사 제목이 들어가죠</a>
-                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
-                    <p class="comment" >여기에 코멘트가 들어갑니다</p>
-                </div>
+        <button type="submit" class="btn btn-primary">기사저장</button>
+    </div>
+    <div class="card-columns" id="cards-box">
+        <div class="card">
+            <img class="card-img-top"
+                 src="https://image.rocketpunch.com/user/336824/336824_1603072439.png?s=200x200&t=cover"
+                 alt="Card image cap">
+            <div class="card-body">
+                <a href="https://www.the5amclub.kr" class="card-title">여기 기사 제목이 들어가죠</a>
+                <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                <p class="comment">여기에 코멘트가 들어갑니다</p>
             </div>
-            <div class="card">
-                <img class="card-img-top" src="https://image.rocketpunch.com/user/336824/336824_1603072439.png?s=200x200&t=cover" alt="Card image cap">
-                <div class="card-body">
-                    <a href="https://www.the5amclub.kr" class="card-title">여기 기사 제목이 들어가죠</a>
-                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
-                    <p class="comment" >여기에 코멘트가 들어갑니다</p>
-                </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top"
+                 src="https://image.rocketpunch.com/user/336824/336824_1603072439.png?s=200x200&t=cover"
+                 alt="Card image cap">
+            <div class="card-body">
+                <a href="https://www.the5amclub.kr" class="card-title">여기 기사 제목이 들어가죠</a>
+                <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                <p class="comment">여기에 코멘트가 들어갑니다</p>
             </div>
-            <div class="card">
-                <img class="card-img-top" src="https://image.rocketpunch.com/user/336824/336824_1603072439.png?s=200x200&t=cover" alt="Card image cap">
-                <div class="card-body">
-                    <a href="https://www.the5amclub.kr" class="card-title">여기 기사 제목이 들어가죠</a>
-                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
-                    <p class="comment" >여기에 코멘트가 들어갑니다</p>
-                </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top"
+                 src="https://image.rocketpunch.com/user/336824/336824_1603072439.png?s=200x200&t=cover"
+                 alt="Card image cap">
+            <div class="card-body">
+                <a href="https://www.the5amclub.kr" class="card-title">여기 기사 제목이 들어가죠</a>
+                <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                <p class="comment">여기에 코멘트가 들어갑니다</p>
             </div>
-            <div class="card">
-                <img class="card-img-top" src="https://image.rocketpunch.com/user/336824/336824_1603072439.png?s=200x200&t=cover" alt="Card image cap">
-                <div class="card-body">
-                    <a href="https://www.the5amclub.kr" class="card-title">여기 기사 제목이 들어가죠</a>
-                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
-                    <p class="comment" >여기에 코멘트가 들어갑니다</p>
-                </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top"
+                 src="https://image.rocketpunch.com/user/336824/336824_1603072439.png?s=200x200&t=cover"
+                 alt="Card image cap">
+            <div class="card-body">
+                <a href="https://www.the5amclub.kr" class="card-title">여기 기사 제목이 들어가죠</a>
+                <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                <p class="comment">여기에 코멘트가 들어갑니다</p>
             </div>
-            <div class="card">
-                <img class="card-img-top" src="https://image.rocketpunch.com/user/336824/336824_1603072439.png?s=200x200&t=cover" alt="Card image cap">
-                <div class="card-body">
-                    <a href="https://www.the5amclub.kr" class="card-title">여기 기사 제목이 들어가죠</a>
-                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
-                    <p class="comment" >여기에 코멘트가 들어갑니다</p>
-                </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top"
+                 src="https://image.rocketpunch.com/user/336824/336824_1603072439.png?s=200x200&t=cover"
+                 alt="Card image cap">
+            <div class="card-body">
+                <a href="https://www.the5amclub.kr" class="card-title">여기 기사 제목이 들어가죠</a>
+                <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                <p class="comment">여기에 코멘트가 들어갑니다</p>
             </div>
-            <div class="card">
-                <img class="card-img-top" src="https://image.rocketpunch.com/user/336824/336824_1603072439.png?s=200x200&t=cover" alt="Card image cap">
-                <div class="card-body">
-                    <a href="https://www.the5amclub.kr" class="card-title">여기 기사 제목이 들어가죠</a>
-                    <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
-                    <p class="comment" >여기에 코멘트가 들어갑니다</p>
-                </div>
+        </div>
+        <div class="card">
+            <img class="card-img-top"
+                 src="https://image.rocketpunch.com/user/336824/336824_1603072439.png?s=200x200&t=cover"
+                 alt="Card image cap">
+            <div class="card-body">
+                <a href="https://www.the5amclub.kr" class="card-title">여기 기사 제목이 들어가죠</a>
+                <p class="card-text">기사의 요약 내용이 들어갑니다. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산...</p>
+                <p class="comment">여기에 코멘트가 들어갑니다</p>
             </div>
         </div>
     </div>
+</div>
 </body>
 
 </html>
